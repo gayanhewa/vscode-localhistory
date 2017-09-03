@@ -1,0 +1,45 @@
+{
+    "name": "local-history",
+    "displayName": "Local History",
+    "description": "Extension to manage local history for files",
+    "version": "0.0.1",
+    "publisher": "gayanhewa",
+    "author": "Gayan Hewa <gayanhewa@gmail.com>",
+    "license": "MIT",
+    "engines": {
+        "vscode": "^1.13.0"
+    },
+    "icon": "assets/icon.svg",
+    "categories": [
+        "Languages",
+        "Other"
+    ],
+    "activationEvents": [
+        "*"
+    ],
+    "main": "./out/src/extension",
+    "contributes": {
+        "commands": [
+            {
+                "command": "extension.showLocalHistory",
+                "title": "Show Local History"
+            }
+        ]
+    },
+    "scripts": {
+        "vscode:prepublish": "tsc -p ./",
+        "compile": "tsc -watch -p ./",
+        "postinstall": "node ./node_modules/vscode/bin/install",
+        "test": "node ./node_modules/vscode/bin/test"
+    },
+    "devDependencies": {
+        "typescript": "^2.0.3",
+        "vscode": "^1.0.0",
+        "mocha": "^2.3.3",
+        "@types/node": "^6.0.40",
+        "@types/mocha": "^2.2.32"
+    },
+    "dependencies": {
+        "moment": "^2.18.1"
+    }
+}
