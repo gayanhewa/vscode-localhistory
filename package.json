@@ -2,6 +2,10 @@
     "name": "local-history",
     "displayName": "Local History",
     "description": "Extension to manage local history for files",
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/gayanhewa/vscode-localhistory"
+    },
     "version": "0.0.1",
     "publisher": "gayanhewa",
     "author": "Gayan Hewa <gayanhewa@gmail.com>",
