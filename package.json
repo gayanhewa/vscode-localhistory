@@ -9,6 +9,13 @@
     "engines": {
         "vscode": "^1.13.0"
     },
+    "keywords": [
+      "backup",
+      "local history",
+      "local",
+      "save",
+      "in-memory"
+    ],
     "icon": "assets/icon.svg",
     "categories": [
         "Languages",
