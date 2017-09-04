@@ -1,7 +1,7 @@
 'use strict';
 
 import {
-        commands as Commands,
+        commands,
         Disposable,
         ExtensionContext,
         Memento,
@@ -68,9 +68,9 @@ export function activate(context: ExtensionContext) {
         workspace.registerTextDocumentContentProvider ('localhistory-preview', localHistoryProvider)
     );
 
-    let disposableShowLocalHistory = Commands.registerCommand('extension.showLocalHistory', () => {
-        let key = 'local.history' + Window.activeTextEditor.document.fileName;
-        let fileHistory: Array<HistoricalItem> = storage.get(key);
+    let disposableShowLocalHistory = commands.registerCommand('extension.showLocalHistory', () => {
+      let key = 'local.history' + Window.activeTextEditor.document.fileName;
+        let fileHistory: Array<HistoricalItem> = storage.get(key, []);
         let items:Array<HistoryQuickPickItem> = fileHistory.map((file) => {
             let fname = Window.activeTextEditor.document.fileName.split('/').pop();
             return {
@@ -81,14 +81,15 @@ export function activate(context: ExtensionContext) {
                 createdAt: file.createdAt
             }
         });
-
-        Window.showQuickPick(items)
+        if (items.length > 0) {
+          Window.showQuickPick(items)
             .then(selection => {
                 let diffUri = Uri.parse('localhistory-preview://'+selection.key+'#'+selection.createdAt.toString());
-                Commands.executeCommand('vscode.diff', Window.activeTextEditor.document.uri, diffUri, 'Local History Diff');
-
+                commands.executeCommand('vscode.diff', Window.activeTextEditor.document.uri, diffUri, 'Local History Diff');
             });
-
+        } else {
+          Window.showInformationMessage('Local history not available for the selected file.');
+        }
     });
 
     workspace.onDidChangeTextDocument((e) => {
@@ -106,6 +107,7 @@ export function activate(context: ExtensionContext) {
                 let lastItemCreatedAt = moment(fileHistory[0].createdAt);
                 // cache at every 15min interval
                 if (moment().diff(lastItemCreatedAt, 'seconds') > StorageIntervalInSeconds) {
+                  Window.setStatusBarMessage('Saving file to Local History.')
                     fileHistory.unshift({ content: e.document.getText(), createdAt: changedDatetime });
                     // Every single file have only the five last revisions.
                     if (fileHistory.length > NumberOfStorageItems) {
