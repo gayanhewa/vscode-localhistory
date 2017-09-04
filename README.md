@@ -24,4 +24,8 @@ Initial release of the extension.
 - 10 local history items for files that are edited.
 - Files backed up every 10 min during editing.
 
+### 0.0.2
+
+- Fixing a bug with the Show Local History Command
+
 **Enjoy!**
