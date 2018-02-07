@@ -39,10 +39,10 @@
       "configuration": {
         "properties": {
           "localhistory.backupInterval": {
-              "default": "600"
+              "default": 600
           },
           "localhistory.numberOfLocalHistoryItems": {
-              "default": "5"
+              "default": 5
           }
         }
       }
